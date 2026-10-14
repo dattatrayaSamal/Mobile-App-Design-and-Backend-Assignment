@@ -17,14 +17,12 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/enquiries", enquiryRoutes);
 
-// Handle unknown routes.
 app.use((req, res) => {
   res.status(404).json({
     message: "Route not found",
   });
 });
 
-// Handle malformed JSON and other forwarded errors.
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && "body" in err) {
     return res.status(400).json({
